@@ -87,6 +87,7 @@
             // 
             // HoraDateTimePicker
             // 
+            HoraDateTimePicker.Format = DateTimePickerFormat.Time;
             HoraDateTimePicker.Location = new Point(455, 241);
             HoraDateTimePicker.Name = "HoraDateTimePicker";
             HoraDateTimePicker.Size = new Size(300, 31);

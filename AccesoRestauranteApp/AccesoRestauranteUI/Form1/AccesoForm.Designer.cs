@@ -39,11 +39,11 @@
             comentarioLabel = new Label();
             comentarioTextBox = new TextBox();
             enviarButton = new Button();
-            errorProvider1 = new ErrorProvider(components);
+            provedorError = new ErrorProvider(components);
             nombreErrorLabel = new Label();
             numeroErrorLabel = new Label();
             correoErrorLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)provedorError).BeginInit();
             SuspendLayout();
             // 
             // tituloLabel
@@ -82,6 +82,7 @@
             nombreTextBox.Name = "nombreTextBox";
             nombreTextBox.Size = new Size(373, 31);
             nombreTextBox.TabIndex = 3;
+            nombreTextBox.Validating += nombreTextBox_Validating;
             // 
             // numeroTextBox
             // 
@@ -89,6 +90,7 @@
             numeroTextBox.Name = "numeroTextBox";
             numeroTextBox.Size = new Size(373, 31);
             numeroTextBox.TabIndex = 4;
+            numeroTextBox.Validating += numeroTextBox_Validating;
             // 
             // correoLabel
             // 
@@ -106,6 +108,7 @@
             correoTextBox.Name = "correoTextBox";
             correoTextBox.Size = new Size(374, 31);
             correoTextBox.TabIndex = 6;
+            correoTextBox.Validating += correoTextBox_Validating;
             // 
             // comentarioLabel
             // 
@@ -133,10 +136,11 @@
             enviarButton.TabIndex = 9;
             enviarButton.Text = "Enviar";
             enviarButton.UseVisualStyleBackColor = true;
+            enviarButton.Click += enviarButton_Click;
             // 
-            // errorProvider1
+            // provedorError
             // 
-            errorProvider1.ContainerControl = this;
+            provedorError.ContainerControl = this;
             // 
             // nombreErrorLabel
             // 
@@ -188,7 +192,7 @@
             Controls.Add(tituloLabel);
             Name = "AccesoForm";
             Text = "AccesoForm";
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)provedorError).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -205,7 +209,7 @@
         private Label comentarioLabel;
         private TextBox comentarioTextBox;
         private Button enviarButton;
-        private ErrorProvider errorProvider1;
+        private ErrorProvider provedorError;
         private Label correoErrorLabel;
         private Label numeroErrorLabel;
         private Label nombreErrorLabel;
