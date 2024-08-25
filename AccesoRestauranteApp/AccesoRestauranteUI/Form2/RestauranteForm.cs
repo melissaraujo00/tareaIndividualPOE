@@ -7,15 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AccesoRestauranteUI.EventosPersonalizado;
 using static System.Resources.ResXFileRef;
 
 namespace AccesoRestauranteUI.Form2
 {
     public partial class RestauranteForm : Form
     {
+        private EnvioConfirmacionReservacion _envioConfimacion;
         public RestauranteForm()
         {
             InitializeComponent();
+            _envioConfimacion = new EnvioConfirmacionReservacion();
+            _envioConfimacion.EnvioConfirmacion += OnEnvioConfirmacion;
+
+        }
+
+        public void OnEnvioConfirmacion(object sender, string mensajeConfirmacion)
+        {
+            MessageBox.Show($"Su reservacion para el dia {mensajeConfirmacion} Esta confirmada",
+                "Confirmacion de Reservacion",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
         }
 
         private void cantidadNumericaUpDown_Validating(object sender, CancelEventArgs e)
@@ -49,6 +62,9 @@ namespace AccesoRestauranteUI.Form2
         {
             DateTimePicker horaPicker = sender as DateTimePicker;
 
+            TimeSpan horaMinima = new TimeSpan(8, 0, 0);
+            TimeSpan horaMaxima = new TimeSpan(20, 0, 0);
+            TimeSpan horaSeleccionada = horaPicker.Value.TimeOfDay;
 
             if (horaPicker == null)
             {
@@ -58,12 +74,7 @@ namespace AccesoRestauranteUI.Form2
                 horalErrorLabel.Text = "El valor no debe estar vacio.";
                 horaPicker.Focus();
             }
-
-            TimeSpan horaMinima = new TimeSpan(8, 0, 0);
-            TimeSpan horaMaxima = new TimeSpan(20, 0, 0);
-            TimeSpan horaSeleccionada = horaPicker.Value.TimeOfDay;
-
-            if (horaSeleccionada < horaMinima || horaSeleccionada > horaMaxima)
+            else if (horaSeleccionada < horaMinima || horaSeleccionada > horaMaxima)
             {
                 e.Cancel = true;
                 provedorError.SetError(horaPicker, "La hora seleccionada debe estar entre las 08:00 AM y las 06:00 PM.");
@@ -79,9 +90,13 @@ namespace AccesoRestauranteUI.Form2
             }
         }
 
-        private void diaDateTimePicker1_Validating(object sender, CancelEventArgs e)
+        private void diaDateTimePicker_Validating(object sender, CancelEventArgs e)
         {
             DateTimePicker diaPicker = sender as DateTimePicker;
+
+            DateTime fechaSeleccionada = diaPicker.Value;
+            DateTime hoy = DateTime.Today;
+            DayOfWeek diaSemana = fechaSeleccionada.DayOfWeek;
 
             if (diaPicker == null)
             {
@@ -90,10 +105,15 @@ namespace AccesoRestauranteUI.Form2
                 diaErrorLabel.Text = "El valor no debe estar vacio.";
                 diaPicker.Focus();
             }
-            DateTime fechaSeleccionada = diaPicker.Value;
-            DayOfWeek diaSemana = fechaSeleccionada.DayOfWeek;
-
-            if (diaSemana == DayOfWeek.Sunday)
+            else if (fechaSeleccionada <= hoy)
+            {
+                e.Cancel = true;
+                provedorError.SetError(diaPicker, "La fecha debe ser posterior a hoy.");
+                diaErrorLabel.Text = "La fecha debe ser posterior a hoy.";
+                diaPicker.Focus();
+                return;
+            }
+            else if (diaSemana == DayOfWeek.Sunday)
             {
                 e.Cancel = true;
                 provedorError.SetError(diaPicker, "El día debe ser de lunes a sábado.");
@@ -138,6 +158,7 @@ namespace AccesoRestauranteUI.Form2
             {
                 try
                 {
+                    _envioConfimacion.SendEnvioConfirmacion(diaDateTimePicker.Text);
                     this.Close();
                 }
                 catch (Exception ex)

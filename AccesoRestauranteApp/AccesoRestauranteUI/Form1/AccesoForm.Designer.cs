@@ -43,6 +43,7 @@
             nombreErrorLabel = new Label();
             numeroErrorLabel = new Label();
             correoErrorLabel = new Label();
+            comentarioErrorLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)provedorError).BeginInit();
             SuspendLayout();
             // 
@@ -125,8 +126,9 @@
             comentarioTextBox.Location = new Point(256, 376);
             comentarioTextBox.Multiline = true;
             comentarioTextBox.Name = "comentarioTextBox";
-            comentarioTextBox.Size = new Size(370, 175);
+            comentarioTextBox.Size = new Size(370, 160);
             comentarioTextBox.TabIndex = 8;
+            comentarioTextBox.Validating += comentarioTextBox_Validating;
             // 
             // enviarButton
             // 
@@ -172,11 +174,22 @@
             correoErrorLabel.Size = new Size(0, 25);
             correoErrorLabel.TabIndex = 12;
             // 
+            // comentarioErrorLabel
+            // 
+            comentarioErrorLabel.AutoSize = true;
+            comentarioErrorLabel.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            comentarioErrorLabel.ForeColor = Color.Red;
+            comentarioErrorLabel.Location = new Point(267, 546);
+            comentarioErrorLabel.Name = "comentarioErrorLabel";
+            comentarioErrorLabel.Size = new Size(0, 25);
+            comentarioErrorLabel.TabIndex = 13;
+            // 
             // AccesoForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(756, 697);
+            Controls.Add(comentarioErrorLabel);
             Controls.Add(correoErrorLabel);
             Controls.Add(numeroErrorLabel);
             Controls.Add(nombreErrorLabel);
@@ -213,5 +226,6 @@
         private Label correoErrorLabel;
         private Label numeroErrorLabel;
         private Label nombreErrorLabel;
+        private Label comentarioErrorLabel;
     }
 }

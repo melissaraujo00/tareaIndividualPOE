@@ -8,18 +8,29 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AccesoRestauranteUI.EventosPersonalizado;
 using AccesoRestauranteUI.Form2;
 
 namespace AccesoRestauranteUI.Form1
 {
     public partial class AccesoForm : Form
     {
+        private EnvioExitosoFormulario _envioExitoso;
 
         public AccesoForm()
         {
             InitializeComponent();
+            _envioExitoso = new EnvioExitosoFormulario();
+            _envioExitoso.EnvioExitoso += OnEnvioExitoso;
         }
 
+        public void OnEnvioExitoso(object sender, string mensajeExito)
+        {
+            MessageBox.Show($"Estimado usuario {mensajeExito} su formulario ha sido enviado con exito!!",
+                "Envio Exitoso",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information);
+        }
         private void nombreTextBox_Validating(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(nombreTextBox.Text))
@@ -127,7 +138,21 @@ namespace AccesoRestauranteUI.Form1
                 correoErrorLabel.Text = string.Empty;
             }
         }
-
+        private void comentarioTextBox_Validating(object sender, CancelEventArgs e)
+        {
+            if (comentarioTextBox.Text.Length > 200)
+            {
+                e.Cancel = true;
+                provedorError.SetError(comentarioTextBox, "El comentario no puede exceder los 200 caracteres.");
+                comentarioErrorLabel.Text = "El comentario no puede exceder los 200 caracteres.";
+            }
+            else
+            {
+                e.Cancel = false;
+                provedorError.SetError(comentarioTextBox, "");
+                comentarioErrorLabel.Text = string.Empty;
+            }
+        }
         private void enviarButton_Click(object sender, EventArgs e)
         {
             bool isValid = ValidateChildren();
@@ -136,6 +161,7 @@ namespace AccesoRestauranteUI.Form1
             {
                 try
                 {
+                    _envioExitoso.SendEnvioExitoso(nombreTextBox.Text);
                     RestauranteForm nuevoFormulario = new RestauranteForm();
 
                     nuevoFormulario.ShowDialog();
@@ -152,5 +178,7 @@ namespace AccesoRestauranteUI.Form1
                 MessageBox.Show("Por favor, corrija los errores en el formulario antes de enviarlo.", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        
     }
 }

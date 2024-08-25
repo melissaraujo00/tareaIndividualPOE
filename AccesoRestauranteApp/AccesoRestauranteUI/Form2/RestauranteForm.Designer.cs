@@ -35,7 +35,7 @@
             horaLabel = new Label();
             HoraDateTimePicker = new DateTimePicker();
             diaLabel = new Label();
-            diaDateTimePicker1 = new DateTimePicker();
+            diaDateTimePicker = new DateTimePicker();
             mesaLabel = new Label();
             tipoComboBox = new ComboBox();
             reservarButtton = new Button();
@@ -106,13 +106,13 @@
             diaLabel.TabIndex = 6;
             diaLabel.Text = "Dia:";
             // 
-            // diaDateTimePicker1
+            // diaDateTimePicker
             // 
-            diaDateTimePicker1.Location = new Point(455, 338);
-            diaDateTimePicker1.Name = "diaDateTimePicker1";
-            diaDateTimePicker1.Size = new Size(300, 31);
-            diaDateTimePicker1.TabIndex = 7;
-            diaDateTimePicker1.Validating += diaDateTimePicker1_Validating;
+            diaDateTimePicker.Location = new Point(455, 338);
+            diaDateTimePicker.Name = "diaDateTimePicker";
+            diaDateTimePicker.Size = new Size(300, 31);
+            diaDateTimePicker.TabIndex = 7;
+            diaDateTimePicker.Validating += diaDateTimePicker_Validating;
             // 
             // mesaLabel
             // 
@@ -131,6 +131,7 @@
             tipoComboBox.Name = "tipoComboBox";
             tipoComboBox.Size = new Size(302, 33);
             tipoComboBox.TabIndex = 9;
+            tipoComboBox.Text = "Seleccionar un tipo de mesa";
             // 
             // reservarButtton
             // 
@@ -209,7 +210,7 @@
             Controls.Add(reservarButtton);
             Controls.Add(tipoComboBox);
             Controls.Add(mesaLabel);
-            Controls.Add(diaDateTimePicker1);
+            Controls.Add(diaDateTimePicker);
             Controls.Add(diaLabel);
             Controls.Add(HoraDateTimePicker);
             Controls.Add(horaLabel);
@@ -233,7 +234,7 @@
         private Label horaLabel;
         private DateTimePicker HoraDateTimePicker;
         private Label diaLabel;
-        private DateTimePicker diaDateTimePicker1;
+        private DateTimePicker diaDateTimePicker;
         private Label mesaLabel;
         private ComboBox tipoComboBox;
         private Button reservarButtton;
