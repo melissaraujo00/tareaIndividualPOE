@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             tituloLabel = new Label();
             cantidadLabel = new Label();
-            cantidadNumericUpDown = new NumericUpDown();
+            cantidadNumericaUpDown = new NumericUpDown();
             horaLabel = new Label();
             HoraDateTimePicker = new DateTimePicker();
             diaLabel = new Label();
@@ -40,12 +40,13 @@
             tipoComboBox = new ComboBox();
             reservarButtton = new Button();
             cantidadErrorLabel = new Label();
-            errorProvider1 = new ErrorProvider(components);
+            provedorError = new ErrorProvider(components);
             label1 = new Label();
             diaErrorLabel = new Label();
             tipoErrorLabel = new Label();
-            ((System.ComponentModel.ISupportInitialize)cantidadNumericUpDown).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
+            horalErrorLabel = new Label();
+            ((System.ComponentModel.ISupportInitialize)cantidadNumericaUpDown).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)provedorError).BeginInit();
             SuspendLayout();
             // 
             // tituloLabel
@@ -68,12 +69,13 @@
             cantidadLabel.TabIndex = 1;
             cantidadLabel.Text = "Cantidad de Personas:";
             // 
-            // cantidadNumericUpDown
+            // cantidadNumericaUpDown
             // 
-            cantidadNumericUpDown.Location = new Point(455, 162);
-            cantidadNumericUpDown.Name = "cantidadNumericUpDown";
-            cantidadNumericUpDown.Size = new Size(180, 31);
-            cantidadNumericUpDown.TabIndex = 3;
+            cantidadNumericaUpDown.Location = new Point(455, 162);
+            cantidadNumericaUpDown.Name = "cantidadNumericaUpDown";
+            cantidadNumericaUpDown.Size = new Size(180, 31);
+            cantidadNumericaUpDown.TabIndex = 3;
+            cantidadNumericaUpDown.Validating += cantidadNumericaUpDown_Validating;
             // 
             // horaLabel
             // 
@@ -92,6 +94,7 @@
             HoraDateTimePicker.Name = "HoraDateTimePicker";
             HoraDateTimePicker.Size = new Size(300, 31);
             HoraDateTimePicker.TabIndex = 5;
+            HoraDateTimePicker.Validating += HoraDateTimePicker_Validating;
             // 
             // diaLabel
             // 
@@ -109,6 +112,7 @@
             diaDateTimePicker1.Name = "diaDateTimePicker1";
             diaDateTimePicker1.Size = new Size(300, 31);
             diaDateTimePicker1.TabIndex = 7;
+            diaDateTimePicker1.Validating += diaDateTimePicker1_Validating;
             // 
             // mesaLabel
             // 
@@ -136,6 +140,7 @@
             reservarButtton.TabIndex = 10;
             reservarButtton.Text = "Reservar";
             reservarButtton.UseVisualStyleBackColor = true;
+            reservarButtton.Click += reservarButtton_Click;
             // 
             // cantidadErrorLabel
             // 
@@ -147,9 +152,9 @@
             cantidadErrorLabel.Size = new Size(0, 25);
             cantidadErrorLabel.TabIndex = 11;
             // 
-            // errorProvider1
+            // provedorError
             // 
-            errorProvider1.ContainerControl = this;
+            provedorError.ContainerControl = this;
             // 
             // label1
             // 
@@ -181,11 +186,22 @@
             tipoErrorLabel.Size = new Size(0, 25);
             tipoErrorLabel.TabIndex = 14;
             // 
+            // horalErrorLabel
+            // 
+            horalErrorLabel.AutoSize = true;
+            horalErrorLabel.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            horalErrorLabel.ForeColor = Color.Red;
+            horalErrorLabel.Location = new Point(458, 290);
+            horalErrorLabel.Name = "horalErrorLabel";
+            horalErrorLabel.Size = new Size(0, 25);
+            horalErrorLabel.TabIndex = 15;
+            // 
             // RestauranteForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(917, 702);
+            Controls.Add(horalErrorLabel);
             Controls.Add(tipoErrorLabel);
             Controls.Add(diaErrorLabel);
             Controls.Add(label1);
@@ -197,13 +213,14 @@
             Controls.Add(diaLabel);
             Controls.Add(HoraDateTimePicker);
             Controls.Add(horaLabel);
-            Controls.Add(cantidadNumericUpDown);
+            Controls.Add(cantidadNumericaUpDown);
             Controls.Add(cantidadLabel);
             Controls.Add(tituloLabel);
             Name = "RestauranteForm";
             Text = "RestauranteForm";
-            ((System.ComponentModel.ISupportInitialize)cantidadNumericUpDown).EndInit();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
+            Load += RestauranteForm_Load;
+            ((System.ComponentModel.ISupportInitialize)cantidadNumericaUpDown).EndInit();
+            ((System.ComponentModel.ISupportInitialize)provedorError).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -212,7 +229,7 @@
 
         private Label tituloLabel;
         private Label cantidadLabel;
-        private NumericUpDown cantidadNumericUpDown;
+        private NumericUpDown cantidadNumericaUpDown;
         private Label horaLabel;
         private DateTimePicker HoraDateTimePicker;
         private Label diaLabel;
@@ -221,9 +238,10 @@
         private ComboBox tipoComboBox;
         private Button reservarButtton;
         private Label cantidadErrorLabel;
-        private ErrorProvider errorProvider1;
+        private ErrorProvider provedorError;
         private Label label1;
         private Label tipoErrorLabel;
         private Label diaErrorLabel;
+        private Label horalErrorLabel;
     }
 }

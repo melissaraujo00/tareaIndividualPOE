@@ -14,6 +14,7 @@ namespace AccesoRestauranteUI.Form1
 {
     public partial class AccesoForm : Form
     {
+
         public AccesoForm()
         {
             InitializeComponent();
@@ -135,21 +136,19 @@ namespace AccesoRestauranteUI.Form1
             {
                 try
                 {
-                    this.Close();
-
                     RestauranteForm nuevoFormulario = new RestauranteForm();
 
-                    nuevoFormulario.Show();
+                    nuevoFormulario.ShowDialog();
+
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
-
                     MessageBox.Show($"Se produjo un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-
                 MessageBox.Show("Por favor, corrija los errores en el formulario antes de enviarlo.", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
