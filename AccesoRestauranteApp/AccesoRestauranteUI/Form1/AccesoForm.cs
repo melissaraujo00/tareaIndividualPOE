@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccesoRestauranteUI.EventosPersonalizado;
 using AccesoRestauranteUI.Form2;
+using AccesoRestauranteUI.Form3;
+
 
 namespace AccesoRestauranteUI.Form1
 {
@@ -30,6 +32,32 @@ namespace AccesoRestauranteUI.Form1
                 "Envio Exitoso",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+        private void enviarButton_Click(object sender, EventArgs e)
+        {
+            bool isValid = ValidateChildren();
+
+            if (isValid)
+            {
+                try
+                {
+
+                    RestauranteForm formularioFactura = new RestauranteForm(nombreTextBox.Text, numeroTextBox.Text, correoTextBox.Text);
+
+                    _envioExitoso.SendEnvioExitoso(nombreTextBox.Text);
+
+                    formularioFactura.ShowDialog();
+                    this.Hide();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Se produjo un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, corrija los errores en el formulario antes de enviarlo.", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         private void nombreTextBox_Validating(object sender, CancelEventArgs e)
         {
@@ -153,32 +181,15 @@ namespace AccesoRestauranteUI.Form1
                 comentarioErrorLabel.Text = string.Empty;
             }
         }
-        private void enviarButton_Click(object sender, EventArgs e)
+
+        private void AccesoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            bool isValid = ValidateChildren();
-
-            if (isValid)
-            {
-                try
-                {
-                    _envioExitoso.SendEnvioExitoso(nombreTextBox.Text);
-                    RestauranteForm nuevoFormulario = new RestauranteForm();
-
-                    nuevoFormulario.ShowDialog();
-
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Se produjo un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, corrija los errores en el formulario antes de enviarlo.", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            this.Close();
         }
 
-        
+        private void AccesoForm_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

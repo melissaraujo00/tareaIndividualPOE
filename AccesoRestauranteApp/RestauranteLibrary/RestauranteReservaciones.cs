@@ -26,9 +26,9 @@ namespace RestauranteLibrary
             SeleccionarTipo = seleccionarTipo;
         }
 
-        public (int, TimeSpan, DateTime, string) GetReservacion()
+        public string GetReservacion()
         {
-            return (Cantidad, HoraReservacion, FechaReservacion, SeleccionarTipo);
+            return $" {Cantidad} {HoraReservacion} {FechaReservacion.ToShortDateString()} {SeleccionarTipo}";
         }
 
     }

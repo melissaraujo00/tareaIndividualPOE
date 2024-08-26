@@ -23,9 +23,9 @@ namespace DatosPersonalesLibrary
             Correo = correo;
         }
 
-        public (string, int, string) GetDatosPersonales()
+        public string GetDatosPersonales()
         {
-            return (Nombre, Numero, Correo);
+            return $" {Nombre} {Numero} {Correo}";
         }
     }
 }

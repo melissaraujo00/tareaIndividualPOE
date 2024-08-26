@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccesoRestauranteUI.EventosPersonalizado;
+using AccesoRestauranteUI.Form3;
 using static System.Resources.ResXFileRef;
 
 namespace AccesoRestauranteUI.Form2
@@ -15,11 +16,22 @@ namespace AccesoRestauranteUI.Form2
     public partial class RestauranteForm : Form
     {
         private EnvioConfirmacionReservacion _envioConfimacion;
-        public RestauranteForm()
+        private string nombreForm;
+        private string numeroForm;
+        private string correoForm;
+        public RestauranteForm(
+            string nombre,
+            string numero,
+            string correo)
         {
             InitializeComponent();
             _envioConfimacion = new EnvioConfirmacionReservacion();
             _envioConfimacion.EnvioConfirmacion += OnEnvioConfirmacion;
+
+            nombreForm = nombre;
+            numeroForm = numero;
+            correoForm = correo;
+
 
         }
 
@@ -29,6 +41,44 @@ namespace AccesoRestauranteUI.Form2
                 "Confirmacion de Reservacion",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
+
+        private void reservarButtton_Click(object sender, EventArgs e)
+        {
+
+            bool isValid = ValidateChildren();
+
+            if (tipoComboBox.SelectedIndex == -1)
+            {
+                isValid = false;
+                provedorError.SetError(tipoComboBox, "Debe seleccionar un tipo.");
+                tipoErrorLabel.Text = "Debe seleccionar un tipo.";
+            }
+            else
+            {
+                provedorError.SetError(tipoComboBox, "");
+                tipoErrorLabel.Text = string.Empty;
+            }
+
+            if (isValid)
+            {
+                try
+                {
+                    FacturaForm formularioFacturaCita = new FacturaForm(nombreForm,numeroForm, correoForm, cantidadNumericaUpDown.Value, HoraDateTimePicker.Value, diaDateTimePicker.Value, tipoComboBox.Text);
+                    _envioConfimacion.SendEnvioConfirmacion(diaDateTimePicker.Text);
+                    this.Hide();
+
+                    formularioFacturaCita.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Se produjo un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor, corrija los errores en el formulario antes de enviarlo.", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void cantidadNumericaUpDown_Validating(object sender, CancelEventArgs e)
@@ -137,39 +187,6 @@ namespace AccesoRestauranteUI.Form2
                 ]);
         }
 
-        private void reservarButtton_Click(object sender, EventArgs e)
-        {
-
-            bool isValid = ValidateChildren();
-
-            if (tipoComboBox.SelectedIndex == -1)
-            {
-                isValid = false;
-                provedorError.SetError(tipoComboBox, "Debe seleccionar un tipo.");
-                tipoErrorLabel.Text = "Debe seleccionar un tipo.";
-            }
-            else
-            {
-                provedorError.SetError(tipoComboBox, "");
-                tipoErrorLabel.Text = string.Empty;
-            }
-
-            if (isValid)
-            {
-                try
-                {
-                    _envioConfimacion.SendEnvioConfirmacion(diaDateTimePicker.Text);
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Se produjo un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Por favor, corrija los errores en el formulario antes de enviarlo.", "Errores de Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
+        
     }
 }

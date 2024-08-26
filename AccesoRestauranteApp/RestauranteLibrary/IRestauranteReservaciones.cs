@@ -8,6 +8,6 @@ namespace RestauranteLibrary
 {
     internal interface IRestauranteReservaciones
     {
-        (int, TimeSpan, DateTime, string) GetReservacion();
+       string GetReservacion();
     }
 }

@@ -8,4 +8,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DatosPersonalesLibrary\DatosPersonalesLibrary.csproj" />
+    <ProjectReference Include="..\RestauranteLibrary\RestauranteLibrary.csproj" />
+  </ItemGroup>
+
 </Project>

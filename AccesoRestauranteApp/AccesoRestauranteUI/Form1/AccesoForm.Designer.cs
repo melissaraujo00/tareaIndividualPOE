@@ -205,6 +205,7 @@
             Controls.Add(tituloLabel);
             Name = "AccesoForm";
             Text = "AccesoForm";
+            FormClosing += AccesoForm_FormClosing_1;
             ((System.ComponentModel.ISupportInitialize)provedorError).EndInit();
             ResumeLayout(false);
             PerformLayout();

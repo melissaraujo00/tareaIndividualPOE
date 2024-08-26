@@ -8,6 +8,6 @@ namespace DatosPersonalesLibrary
 {
     internal interface IDatosPersonales
     {
-        (string, int, string) GetDatosPersonales();
+        string GetDatosPersonales();
     }
 }
