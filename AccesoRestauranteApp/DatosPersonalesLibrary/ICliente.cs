@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace DatosPersonalesLibrary
 {
-    internal interface IDatosPersonales
+    internal interface ICliente
     {
-        string GetDatosPersonales();
+        string GetCliente();
     }
 }

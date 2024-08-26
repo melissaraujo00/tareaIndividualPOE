@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using AccesoRestauranteUI.EventosPersonalizado;
 using AccesoRestauranteUI.Form2;
 using AccesoRestauranteUI.Form3;
-
+using DatosPersonalesLibrary;
 
 namespace AccesoRestauranteUI.Form1
 {
@@ -41,13 +41,19 @@ namespace AccesoRestauranteUI.Form1
             {
                 try
                 {
+                    string nombre = nombreTextBox.Text; 
+                    int numero = Convert.ToInt32(numeroTextBox.Text);  
+                    string correo = correoTextBox.Text;
 
-                    RestauranteForm formularioFactura = new RestauranteForm(nombreTextBox.Text, numeroTextBox.Text, correoTextBox.Text);
+                    Cliente cliente = new Cliente(nombre, numero, correo);
+
+                    RestauranteForm formularioFactura = new RestauranteForm(cliente);
 
                     _envioExitoso.SendEnvioExitoso(nombreTextBox.Text);
                     this.Hide();
 
                     formularioFactura.ShowDialog();
+                    this.Close();
                     
                 }
                 catch (Exception ex)

@@ -5,9 +5,9 @@ VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AccesoRestauranteUI", "AccesoRestauranteUI\AccesoRestauranteUI.csproj", "{269D1B7F-CF9F-419A-8A73-6324B17F3DE4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestauranteLibrary", "RestauranteLibrary\RestauranteLibrary.csproj", "{19748A7C-05CA-420A-885A-442C820E73BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestauranteLibrary", "RestauranteLibrary\RestauranteLibrary.csproj", "{19748A7C-05CA-420A-885A-442C820E73BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatosPersonalesLibrary", "DatosPersonalesLibrary\DatosPersonalesLibrary.csproj", "{ED2FF911-3C85-4D49-B5EE-D32F7E60BB6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatosPersonalesLibrary", "DatosPersonalesLibrary\DatosPersonalesLibrary.csproj", "{ED2FF911-3C85-4D49-B5EE-D32F7E60BB6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccesoRestauranteUI.EventosPersonalizado;
 using AccesoRestauranteUI.Form3;
+using DatosPersonalesLibrary;
+using RestauranteLibrary;
 using static System.Resources.ResXFileRef;
 
 namespace AccesoRestauranteUI.Form2
@@ -16,21 +18,15 @@ namespace AccesoRestauranteUI.Form2
     public partial class RestauranteForm : Form
     {
         private EnvioConfirmacionReservacion _envioConfimacion;
-        private string nombreForm;
-        private string numeroForm;
-        private string correoForm;
+        private Cliente _cliente;
         public RestauranteForm(
-            string nombre,
-            string numero,
-            string correo)
+            Cliente cliente)
         {
             InitializeComponent();
             _envioConfimacion = new EnvioConfirmacionReservacion();
             _envioConfimacion.EnvioConfirmacion += OnEnvioConfirmacion;
 
-            nombreForm = nombre;
-            numeroForm = numero;
-            correoForm = correo;
+            _cliente = cliente;
 
 
         }
@@ -64,10 +60,18 @@ namespace AccesoRestauranteUI.Form2
             {
                 try
                 {
-                    FacturaForm formularioFacturaCita = new FacturaForm(nombreForm,numeroForm, correoForm, cantidadNumericaUpDown.Value, HoraDateTimePicker.Value, diaDateTimePicker.Value, tipoComboBox.Text);
+                    int cantidad = (int)cantidadNumericaUpDown.Value;
+                    TimeSpan horaReservacion = HoraDateTimePicker.Value.TimeOfDay;
+                    DateTime fechaReservacion = diaDateTimePicker.Value;
+                    string seleccionarTipo = tipoComboBox.Text;
+
+                    RestauranteReservaciones reservacion = new RestauranteReservaciones(cantidad, horaReservacion, fechaReservacion, seleccionarTipo);
+
+                    FacturaForm formularioFacturaCita = new FacturaForm(_cliente, reservacion);
                     _envioConfimacion.SendEnvioConfirmacion(diaDateTimePicker.Text);
                     this.Hide();
                     formularioFacturaCita.ShowDialog();
+                    this.Close();
                 }
                 catch (Exception ex)
                 {
@@ -83,7 +87,6 @@ namespace AccesoRestauranteUI.Form2
         private void cantidadNumericaUpDown_Validating(object sender, CancelEventArgs e)
         {
             NumericUpDown numericaUpDown = sender as NumericUpDown;
-
 
             if (numericaUpDown == null)
             {
@@ -185,7 +188,5 @@ namespace AccesoRestauranteUI.Form2
                 "Premium"
                 ]);
         }
-
-        
     }
 }

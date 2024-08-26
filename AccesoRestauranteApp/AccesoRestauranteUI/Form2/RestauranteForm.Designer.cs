@@ -201,7 +201,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(917, 702);
+            ClientSize = new Size(1077, 733);
             Controls.Add(horalErrorLabel);
             Controls.Add(tipoErrorLabel);
             Controls.Add(diaErrorLabel);

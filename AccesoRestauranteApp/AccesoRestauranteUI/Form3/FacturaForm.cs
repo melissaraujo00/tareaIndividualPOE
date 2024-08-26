@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccesoRestauranteUI.EventosPersonalizado;
+using DatosPersonalesLibrary;
+using RestauranteLibrary;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace AccesoRestauranteUI.Form3
@@ -15,27 +17,28 @@ namespace AccesoRestauranteUI.Form3
     public partial class FacturaForm : Form
     {
         private ImpresionFactura _enviarImprimir;
+        private Cliente _cliente;
+        private RestauranteReservaciones _reservacion;
+
         public FacturaForm(
-            string nombre,
-            string numero,
-            string correo,
-            decimal cantidad,
-            DateTime horaReservacion,
-            DateTime fechaReservacion,
-            string seleccionarTipo
+            Cliente cliente, RestauranteReservaciones reservacion
             )
         {
             InitializeComponent();
             _enviarImprimir = new ImpresionFactura();
             _enviarImprimir.EnviarImprimir += OnEnvioImprimir;
 
-            nombreRespuestaLabel.Text = nombre;
-            numeroRespuestaLabel.Text = numero;
-            correoRespuestaLabel.Text = correo;
-            cantidadRespuestaLabel.Text = cantidad.ToString();
-            horaRespuestaLabel.Text = horaReservacion.ToString(@"hh\:mm");
-            fechaRespuestaLabel.Text = fechaReservacion.ToShortDateString();
-            tipoRespuestaLabel.Text = seleccionarTipo;
+            _cliente = cliente;
+            _reservacion = reservacion;
+
+            nombreRespuestaLabel.Text = _cliente.Nombre;
+            numeroRespuestaLabel.Text = _cliente.Numero.ToString();
+            correoRespuestaLabel.Text = _cliente.Correo;
+
+            cantidadRespuestaLabel.Text = _reservacion.Cantidad.ToString();
+            horaRespuestaLabel.Text = _reservacion.HoraReservacion.ToString(@"hh\:mm");
+            fechaRespuestaLabel.Text = _reservacion.FechaReservacion.ToShortDateString();
+            tipoRespuestaLabel.Text = _reservacion.SeleccionarTipo;
 
         }
 
@@ -51,7 +54,7 @@ namespace AccesoRestauranteUI.Form3
         {
             try
             {
-                _enviarImprimir.SendEnvioImprimir(nombreRespuestaLabel.Text);
+                _enviarImprimir.SendEnvioImprimir(_cliente.Nombre);
                 this.Close();
             }
             catch (Exception ex)

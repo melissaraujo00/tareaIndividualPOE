@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DatosPersonalesLibrary
 {
-    public class DatosPersonales : IDatosPersonales
+    public class Cliente : ICliente
     {
         public string Nombre { get; set; }
         public int Numero { get; set; }
         public string Correo { get; set; }
         
-        public DatosPersonales(
+        public Cliente(
             string nombre, 
             int numero,
             string correo
@@ -23,7 +23,7 @@ namespace DatosPersonalesLibrary
             Correo = correo;
         }
 
-        public string GetDatosPersonales()
+        public string GetCliente()
         {
             return $" {Nombre} {Numero} {Correo}";
         }
