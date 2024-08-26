@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AccesoRestauranteUI.EventosPersonalizado;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AccesoRestauranteUI.Form3
 {
@@ -53,9 +54,9 @@ namespace AccesoRestauranteUI.Form3
                 _enviarImprimir.SendEnvioImprimir(nombreRespuestaLabel.Text);
                 this.Close();
             }
-            catch
+            catch (Exception ex)
             {
-
+                MessageBox.Show($"Se produjo un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

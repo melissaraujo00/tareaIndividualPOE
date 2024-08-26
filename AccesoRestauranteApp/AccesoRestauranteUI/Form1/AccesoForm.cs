@@ -45,9 +45,10 @@ namespace AccesoRestauranteUI.Form1
                     RestauranteForm formularioFactura = new RestauranteForm(nombreTextBox.Text, numeroTextBox.Text, correoTextBox.Text);
 
                     _envioExitoso.SendEnvioExitoso(nombreTextBox.Text);
+                    this.Hide();
 
                     formularioFactura.ShowDialog();
-                    this.Hide();
+                    
                 }
                 catch (Exception ex)
                 {
@@ -182,12 +183,8 @@ namespace AccesoRestauranteUI.Form1
             }
         }
 
-        private void AccesoForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            this.Close();
-        }
 
-        private void AccesoForm_FormClosing_1(object sender, FormClosingEventArgs e)
+        private void AccesoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
         }

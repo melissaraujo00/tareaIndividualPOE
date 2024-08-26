@@ -67,7 +67,6 @@ namespace AccesoRestauranteUI.Form2
                     FacturaForm formularioFacturaCita = new FacturaForm(nombreForm,numeroForm, correoForm, cantidadNumericaUpDown.Value, HoraDateTimePicker.Value, diaDateTimePicker.Value, tipoComboBox.Text);
                     _envioConfimacion.SendEnvioConfirmacion(diaDateTimePicker.Text);
                     this.Hide();
-
                     formularioFacturaCita.ShowDialog();
                 }
                 catch (Exception ex)
